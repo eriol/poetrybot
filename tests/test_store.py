@@ -10,4 +10,4 @@ def test_connect():
     with pytest.raises(ArgumentError):
         store.connect("")
 
-    store.connect("sqlite://")
+    store.connect("sqlite:///:memory:")
