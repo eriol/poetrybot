@@ -44,10 +44,12 @@ def test_users_creation_staff(db):
 
     db.session.remove()
 
+
 def test_poets_empty(db):
     s = db.session()
     assert s.query(Poet).all() == []
     db.session.remove()
+
 
 def test_poets_creation_no_parameters(db):
     """Test poet creation without parameters."""
@@ -60,9 +62,9 @@ def test_poets_creation_no_parameters(db):
 
     db.session.remove()
 
+
 def test_poets_creation(db):
     """Test poet creation."""
-
     poet_name = "Eugenio Montale"
 
     s = db.session()
