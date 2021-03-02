@@ -3,7 +3,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from poetrybot.database import store
-from poetrybot.database.models import User, Poet
+from poetrybot.database.models import User, Poet, Poem
 
 
 @pytest.fixture
@@ -85,3 +85,36 @@ def test_poets_creation(db):
         s.commit()
 
     db.session.remove()
+
+
+def test_poem_creation_no_parameters(db):
+    """Test poem creation without parameters."""
+
+    s = db.session()
+    s.add(Poem())
+
+    with pytest.raises(IntegrityError):
+        s.commit()
+
+
+def test_poem_creation_no_poet(db):
+    """Test poem creation without a poet."""
+
+    s = db.session()
+
+    # First verses of L'assiuolo by Giovanni Pascoli (CC BY-NC-SA 4.0)
+    # https://www.liberliber.it/online/autori/autori-p/giovanni-pascoli/myricae/
+    verses = """Dov’era la luna? ché il cielo
+notava in un'alba di perla,
+ed ergersi il mandorlo e il melo
+parevano a meglio vederla.
+Venivano soffi di lampi
+da un nero di nubi laggiù;
+veniva una voce dai campi:
+chiù...
+    """
+
+    s.add(Poem(verses=verses))
+
+    with pytest.raises(IntegrityError):
+        s.commit()

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Boolean, String
+from sqlalchemy import Column, Integer, Boolean, String, Text, ForeignKey
 
 from . import Base
 
@@ -28,3 +28,14 @@ class Poet(Base):
 
     def __repr__(self):
         return f"Poet(id={self.id}, name={self.name})"
+
+
+class Poem(Base):
+    """A poem."""
+
+    __tablename__ = "poems"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(length=255, collation="NOCASE"), nullable=True)
+    verses = Column(Text(collation="NOCASE"), nullable=False)
+    poet_id = Column(Integer, ForeignKey("poets.id"), nullable=False)
