@@ -8,7 +8,7 @@ from poetrybot.database.models import User, Poet, Poem
 
 @pytest.fixture
 def db():
-    store.connect("sqlite://")
+    store.connect("sqlite:///:memory:")
     return store
 
 
