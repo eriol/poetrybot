@@ -23,6 +23,9 @@ pytest-xdist = "^2.2.1"
 minversion = "6.0"
 addopts = "--verbose"
 
+[tool.poetry.scripts]
+poetrybot = "poetrybot.main:main"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
