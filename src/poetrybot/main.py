@@ -1,7 +1,8 @@
 import logging
 
-from poetrybot.database import store
 from poetrybot.config import Config
+from poetrybot.database import store
+from poetrybot.telegram.bot import run
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -16,6 +17,8 @@ def main():
     log.debug("Starting poetrybot")
 
     store.connect(config.DATABASE_URL)
+
+    run(config)
 
 
 if __name__ == "__main__":
