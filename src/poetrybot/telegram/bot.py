@@ -1,6 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 
 from .commands.help import help
+from .commands.quote import quote
 
 
 def run(config) -> None:
@@ -8,6 +9,7 @@ def run(config) -> None:
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("help", help))
+    dispatcher.add_handler(CommandHandler("quote", quote))
 
     updater.start_polling()
     updater.idle()
