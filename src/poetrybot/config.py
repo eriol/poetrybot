@@ -6,4 +6,4 @@ import environ
 @environ.config(prefix="")
 class Config:
     TELEGRAM_TOKEN = environ.var()
-    DATABASE_URL = environ.var(default="sqlite:///:memory:")
+    DATABASE_URL = environ.var()
