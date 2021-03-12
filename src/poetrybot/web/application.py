@@ -53,7 +53,21 @@ def create_poet():
     poet = Poet(name=data["name"])
     s.add(poet)
     s.commit()
+    store.session.remove()
 
     response = jsonify(poet.to_dict())
     response.status_code = 201
     return response
+
+
+@app.route("/poets/<int:poet_id>", methods=["GET"])
+def get_poet(poet_id):
+
+    s = store.session()
+    poet = s.query(Poet).filter(Poet.id == poet_id).first()
+    store.session.remove()
+
+    if not poet:
+        return error(404)
+
+    return jsonify(poet.to_dict())
