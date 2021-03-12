@@ -38,24 +38,20 @@ def db():
 @pytest.fixture
 def poems(db):
 
-    s = db.session()
+    with db.get_session() as s:
 
-    pascoli = Poet(name="Giovanni Pascoli")
-    s.add(pascoli)
-    s.commit()
+        pascoli = Poet(name="Giovanni Pascoli")
+        s.add(pascoli)
+        s.commit()
 
-    s.add(Poem(verses=verses1, poet_id=pascoli.id))
-    s.add(Poem(verses=verses2, poet_id=pascoli.id))
-    s.commit()
-
-    db.session.remove()
+        s.add(Poem(verses=verses1, poet_id=pascoli.id))
+        s.add(Poem(verses=verses2, poet_id=pascoli.id))
+        s.commit()
 
 
 def test_get_a_random_poem(db, poems):
 
-    s = db.session()
+    with db.get_session() as s:
 
-    poem = get_a_random_poem(s)
-    assert poem.verses in [verses1, verses2]
-
-    db.session.remove()
+        poem = get_a_random_poem(s)
+        assert poem.verses in [verses1, verses2]

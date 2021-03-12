@@ -15,9 +15,8 @@ store.connect(config.DATABASE_URL)
 @bp.route("", methods=["GET"])
 def get_poets():
 
-    s = store.session()
-    poets = s.query(Poet).all()
-    store.session.remove()
+    with store.get_session() as s:
+        poets = s.query(Poet).all()
 
     return jsonify([poet.to_dict() for poet in poets])
 
@@ -31,16 +30,14 @@ def create_poet():
     if data["name"] == "":
         return error(400, "name field can't be empty")
 
-    s = store.session()
+    with store.get_session() as s:
 
-    if s.query(Poet).filter(Poet.name == data["name"]).first():
-        store.session.remove()
-        return error(400, "this poet is already present")
+        if s.query(Poet).filter(Poet.name == data["name"]).first():
+            return error(400, "this poet is already present")
 
-    poet = Poet(name=data["name"])
-    s.add(poet)
-    s.commit()
-    store.session.remove()
+        poet = Poet(name=data["name"])
+        s.add(poet)
+        s.commit()
 
     response = jsonify(poet.to_dict())
     response.status_code = 201
@@ -50,9 +47,8 @@ def create_poet():
 @bp.route("/<int:poet_id>", methods=["GET"])
 def get_poet(poet_id):
 
-    s = store.session()
-    poet = s.query(Poet).filter(Poet.id == poet_id).first()
-    store.session.remove()
+    with store.get_session() as s:
+        poet = s.query(Poet).filter(Poet.id == poet_id).first()
 
     if not poet:
         return error(404)

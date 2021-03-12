@@ -1,3 +1,5 @@
+from contextlib import contextmanager
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -19,6 +21,13 @@ class Store:
         self.session = scoped_session(
             sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
         )
+
+    @contextmanager
+    def get_session(self):
+        try:
+            yield self.session()
+        finally:
+            self.session.remove()
 
 
 store = Store()
