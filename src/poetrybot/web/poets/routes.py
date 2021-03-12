@@ -12,7 +12,7 @@ config = Config.from_environ()
 store.connect(config.DATABASE_URL)
 
 
-@bp.route("/", methods=["GET"])
+@bp.route("", methods=["GET"])
 def get_poets():
 
     s = store.session()
@@ -22,7 +22,7 @@ def get_poets():
     return jsonify([poet.to_dict() for poet in poets])
 
 
-@bp.route("/", methods=["POST"])
+@bp.route("", methods=["POST"])
 def create_poet():
     data = request.get_json() or {}
 
