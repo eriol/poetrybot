@@ -54,3 +54,27 @@ def get_poet(poet_id):
         return error(404)
 
     return jsonify(poet.to_dict())
+
+
+@bp.route("/<int:id>", methods=["PUT"])
+def update_poet(id):
+    data = request.get_json() or {}
+
+    if "name" not in data:
+        return error(400, "name field is required")
+    if data["name"] == "":
+        return error(400, "name field can't be empty")
+
+    updated = None
+    with store.get_session() as s:
+        poet = s.query(Poet).filter(Poet.id == id).first()
+
+        if not poet:
+            return error(404)
+
+        poet.name = data["name"]
+        s.commit()
+
+        updated = poet.to_dict()
+
+    return jsonify(updated)
