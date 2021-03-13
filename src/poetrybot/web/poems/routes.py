@@ -1,15 +1,10 @@
 from flask import jsonify, request
 
-from poetrybot.config import Config
 from poetrybot.database import store
 from poetrybot.database.models import Poem
 
 from . import bp
 from ..errors import error
-
-config = Config.from_environ()
-
-store.connect(config.DATABASE_URL)
 
 
 @bp.route("", methods=["GET"])
