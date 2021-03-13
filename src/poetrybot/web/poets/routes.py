@@ -30,6 +30,7 @@ def create_poet():
     if data["name"] == "":
         return error(400, "name field can't be empty")
 
+    created = None
     with store.get_session() as s:
 
         if s.query(Poet).filter(Poet.name == data["name"]).first():
@@ -39,7 +40,9 @@ def create_poet():
         s.add(poet)
         s.commit()
 
-    response = jsonify(poet.to_dict())
+        created = poet.to_dict()
+
+    response = jsonify(created)
     response.status_code = 201
     return response
 
