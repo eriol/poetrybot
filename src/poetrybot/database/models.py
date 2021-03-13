@@ -43,3 +43,12 @@ class Poem(Base):
     title = Column(String(length=255, collation="NOCASE"), nullable=True)
     verses = Column(Text(collation="NOCASE"), nullable=False)
     poet_id = Column(Integer, ForeignKey("poets.id"), nullable=False)
+
+    def to_dict(self):
+        """Return a dict representation of a poem."""
+        return {
+            "id": self.id,
+            "title": self.title,
+            "verses": self.verses,
+            "poet_id": self.poet_id,
+        }
