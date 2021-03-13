@@ -44,11 +44,11 @@ def create_poet():
     return response
 
 
-@bp.route("/<int:poet_id>", methods=["GET"])
-def get_poet(poet_id):
+@bp.route("/<int:id>", methods=["GET"])
+def get_poet(id):
 
     with store.get_session() as s:
-        poet = s.query(Poet).filter(Poet.id == poet_id).first()
+        poet = s.query(Poet).filter(Poet.id == id).first()
 
     if not poet:
         return error(404)
@@ -78,3 +78,18 @@ def update_poet(id):
         updated = poet.to_dict()
 
     return jsonify(updated)
+
+
+@bp.route("/<int:id>", methods=["DELETE"])
+def delete_poet(id):
+
+    with store.get_session() as s:
+        poet = s.query(Poet).filter(Poet.id == id).first()
+
+        if not poet:
+            return error(404)
+
+        s.delete(poet)
+        s.commit()
+
+    return "", 204
