@@ -70,7 +70,7 @@ def test_poets_creation(db):
         s.add(Poet(name=poet_name))
         with pytest.raises(IntegrityError):
             s.commit()
-        db.session.rollback()
+        db.rollback()
 
         s.add(Poet(name=poet_name.upper()))
         with pytest.raises(IntegrityError):

@@ -29,5 +29,8 @@ class Store:
         finally:
             self.session.remove()
 
+    def rollback(self):
+        self.session.rollback()
+
 
 store = Store()
