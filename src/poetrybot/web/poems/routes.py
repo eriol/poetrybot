@@ -28,11 +28,11 @@ def create_poem():
     created = None
     with store.get_session() as s:
 
-        poet = Poem()
-        s.add(poet)
+        poem = Poem(verses=data["verses"], poet_id=data["poet"])
+        s.add(poem)
         s.commit()
 
-        created = poet.to_dict()
+        created = poem.to_dict()
 
     response = jsonify(created)
     response.status_code = 201
