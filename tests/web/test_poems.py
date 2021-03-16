@@ -34,6 +34,12 @@ def test_empty(client):
 def test_preate_poem(client, poet):
     """Test poem creation."""
 
-    r = client.post("/poems", json={"title": "", "verses": verses, "poet": poet["id"]})
+    r = client.post(
+        "/poems", json={"title": "", "verses": verses, "poet_id": poet["id"]}
+    )
     assert r.status == "201 CREATED"
-    assert r.get_json() == {"id": 1, "poet_id": 1, "title": None, "verses": verses}
+    assert r.get_json() == {"id": 1, "poet_id": 1, "title": "", "verses": verses}
+
+    r = client.post("/poems", json={"verses": verses, "poet_id": poet["id"]})
+    assert r.status == "201 CREATED"
+    assert r.get_json() == {"id": 2, "poet_id": 1, "title": None, "verses": verses}
