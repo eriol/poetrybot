@@ -42,3 +42,15 @@ def create_poem():
     response = jsonify(created)
     response.status_code = 201
     return response
+
+
+@bp.route("/<int:id>", methods=["GET"])
+def get_poem(id):
+
+    with store.get_session() as s:
+        poem = s.query(Poem).filter(Poem.id == id).first()
+
+    if not poem:
+        return error(404)
+
+    return jsonify(poem.to_dict())

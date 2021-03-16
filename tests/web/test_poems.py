@@ -43,3 +43,19 @@ def test_preate_poem(client, poet):
     r = client.post("/poems", json={"verses": verses, "poet_id": poet["id"]})
     assert r.status == "201 CREATED"
     assert r.get_json() == {"id": 2, "poet_id": 1, "title": None, "verses": verses}
+
+
+def test_get_poem(client, poet):
+    """Test get poem details."""
+    r = client.get("/poems/1")
+    assert r.status == "404 NOT FOUND"
+    assert r.get_json() == {"error": "Not Found"}
+
+    r = client.post(
+        "/poems", json={"title": "", "verses": verses, "poet_id": poet["id"]}
+    )
+    assert r.status == "201 CREATED"
+
+    r = client.get("/poems/1")
+    assert r.status == "200 OK"
+    assert r.get_json() == {"id": 1, "poet_id": 1, "title": "", "verses": verses}
