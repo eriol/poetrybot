@@ -1,10 +1,15 @@
 from flask import jsonify, request
+from marshmallow import ValidationError
 
 from poetrybot.database import store
 from poetrybot.database.models import Poem
 
-from . import bp
 from ..errors import error
+
+from . import bp
+from .schemas import PoemSchema
+
+poem_schema = PoemSchema()
 
 
 @bp.route("", methods=["GET"])
@@ -18,17 +23,17 @@ def get_poems():
 
 @bp.route("", methods=["POST"])
 def create_poem():
-    data = request.get_json() or {}
+    data = request.get_json(silent=True) or {}
 
-    if "verses" not in data:
-        return error(400, "verses field is required")
-    if data["verses"] == "":
-        return error(400, "verses field can't be empty")
+    try:
+        data = poem_schema.load(data)
+    except ValidationError as err:
+        return error(400, err.messages)
 
     created = None
     with store.get_session() as s:
 
-        poem = Poem(verses=data["verses"], poet_id=data["poet"])
+        poem = Poem(**data)
         s.add(poem)
         s.commit()
 
