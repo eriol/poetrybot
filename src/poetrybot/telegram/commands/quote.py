@@ -10,4 +10,5 @@ def quote(update: Update, context: CallbackContext) -> None:
     with store.get_session() as s:
         poem = get_a_random_poem(s)
 
-    update.message.reply_text(poem.verses)
+    reply = poem.verses if poem else "No quote found!"
+    update.message.reply_text(reply)
