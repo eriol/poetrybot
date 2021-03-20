@@ -54,3 +54,28 @@ def get_poem(id):
         return error(404)
 
     return jsonify(poem.to_dict())
+
+
+@bp.route("/<int:id>", methods=["PUT"])
+def update_poem(id):
+    data = request.get_json(silent=True) or {}
+
+    try:
+        data = poem_schema.load(data)
+    except ValidationError as err:
+        return error(400, err.messages)
+
+    updated = None
+    with store.get_session() as s:
+        poem = s.query(Poem).filter(Poem.id == id).first()
+
+        if not poem:
+            return error(404)
+
+        for key in data:
+            setattr(poem, key, data[key])
+        s.commit()
+
+        updated = poem.to_dict()
+
+    return jsonify(updated)

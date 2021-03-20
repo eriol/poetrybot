@@ -53,11 +53,6 @@ def test_edit_poet(client):
     poet = {"name": "Eugenio M"}
     r = client.post("/poets", json=poet)
     assert r.status == "201 CREATED"
-    poet = r.get_json()
-
-    r = client.get(f"/poets/{poet['id']}")
-    assert r.status == "200 OK"
-    assert r.get_json() == poet
 
     poet = {"id": 1, "name": "Eugenio Montale"}
     r = client.put(f"/poets/{poet['id']}", json=poet)
