@@ -33,7 +33,6 @@ def test_empty(client):
 
 def test_preate_poem(client, poet):
     """Test poem creation."""
-
     r = client.post(
         "/poems", json={"title": "", "verses": verses, "poet_id": poet["id"]}
     )
@@ -47,7 +46,6 @@ def test_preate_poem(client, poet):
 
 def test_get_poem(client, poet):
     """Test get poem details."""
-
     r = client.get("/poems/1")
     assert r.status == "404 NOT FOUND"
     assert r.get_json() == {"error": "Not Found"}
@@ -64,7 +62,6 @@ def test_get_poem(client, poet):
 
 def test_edit_poem(client, poet):
     """Test edit a poem."""
-
     r = client.post(
         "/poems", json={"title": "", "verses": verses, "poet_id": poet["id"]}
     )
@@ -75,3 +72,24 @@ def test_edit_poem(client, poet):
     assert r.status == "200 OK"
     poem.update({"id": 1, "title": ""})
     assert r.get_json() == poem
+
+
+def test_delete_poem(client, poet):
+    """Test delete a poem."""
+    r = client.post(
+        "/poems", json={"title": "", "verses": verses, "poet_id": poet["id"]}
+    )
+    assert r.status == "201 CREATED"
+    print(r.get_json())
+
+    r = client.get("/poems/1")
+    assert r.status == "200 OK"
+    assert r.get_json() == {"id": 1, "poet_id": 1, "title": "", "verses": verses}
+
+    r = client.delete("/poems/1")
+    print(r.get_json())
+    assert r.status == "204 NO CONTENT"
+
+    r = client.get("/poems/1")
+    print(r.get_json())
+    assert r.status == "404 NOT FOUND"

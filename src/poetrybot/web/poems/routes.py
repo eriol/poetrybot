@@ -79,3 +79,18 @@ def update_poem(id):
         updated = poem.to_dict()
 
     return jsonify(updated)
+
+
+@bp.route("/<int:id>", methods=["DELETE"])
+def delete_poem(id):
+
+    with store.get_session() as s:
+        poem = s.query(Poem).filter(Poem.id == id).first()
+
+        if not poem:
+            return error(404)
+
+        s.delete(poem)
+        s.commit()
+
+    return "", 204
