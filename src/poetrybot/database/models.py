@@ -15,10 +15,6 @@ class User(Base):
     def __repr__(self):
         return f"User(id={self.id}, is_staff={self.is_staff})"
 
-    def to_dict(self):
-        """Return a dict representation of an user."""
-        return {"id": self.id, "name": self.name}
-
 
 class Poet(Base):
     """A poet."""

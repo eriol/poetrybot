@@ -10,6 +10,7 @@ from . import bp
 from .schemas import UserSchema
 
 user_schema = UserSchema()
+users_schema = UserSchema(many=True)
 
 
 @bp.route("", methods=["GET"])
@@ -18,7 +19,7 @@ def get_users():
     with store.get_session() as s:
         users = s.query(User).all()
 
-    return jsonify([user.to_dict() for user in users])
+    return jsonify(users_schema.dump(users))
 
 
 @bp.route("", methods=["POST"])
@@ -32,14 +33,14 @@ def create_user():
 
     created = None
     with store.get_session() as s:
-        if s.query(User).filter(User.id == data["id"]).one():
+        if s.query(User).filter(User.id == data["id"]).first():
             return error(400, "user with the specified id already exists")
 
         user = User(**data)
         s.add(user)
         s.commit()
 
-        created = user.to_dict()
+        created = user_schema.dump(user)
 
     response = jsonify(created)
     response.status_code = 201
