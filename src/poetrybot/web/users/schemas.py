@@ -10,5 +10,5 @@ def validate_id(n):
 
 
 class UserSchema(Schema):
-    id = fields.Int(validate=validate_id)
+    id = fields.Int(validate=validate_id, required=True)
     name = fields.String(required=True)
