@@ -1,3 +1,4 @@
+"""Database models for poetrybot."""
 from sqlalchemy import Column, Integer, Boolean, String, Text, ForeignKey
 
 from . import Base
@@ -16,6 +17,10 @@ class User(Base):
 
     def __repr__(self):
         return f"User(id={self.id}, is_staff={self.is_staff})"
+
+    def to_dict(self):
+        """Return a dict representation of an user."""
+        return {"id": self.id, "is_staff": self.is_staff}
 
 
 class Poet(Base):
