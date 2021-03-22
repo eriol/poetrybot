@@ -3,8 +3,9 @@ from flask import Flask, request
 from poetrybot.config import Config
 from poetrybot.database import store
 
-from .poets import bp as poets_bp
 from .poems import bp as poems_bp
+from .poets import bp as poets_bp
+from .users import bp as users_bp
 
 
 def create_app(config=None):
@@ -26,7 +27,8 @@ def create_app(config=None):
         if auth_token != config.AUTH_TOKEN:
             return "", 401
 
-    app.register_blueprint(poets_bp, url_prefix="/poets")
     app.register_blueprint(poems_bp, url_prefix="/poems")
+    app.register_blueprint(poets_bp, url_prefix="/poets")
+    app.register_blueprint(users_bp, url_prefix="/users")
 
     return app
