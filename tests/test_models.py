@@ -17,27 +17,24 @@ def test_users_empty(db):
         assert s.query(User).all() == []
 
 
-def test_users_creation_with_default_parameters(db):
-    """Test creation of an user without parameters."""
+def test_users_creation_without_name(db):
+    """Test creation of an user without name."""
     with db.get_session() as s:
         s.add(User())
-        s.commit()
-
-        assert db.session.query(User).all() != []
-        u = s.query(User).one()
-        assert u.id == 1
-        assert u.is_staff is False
+        with pytest.raises(IntegrityError):
+            s.commit()
 
 
-def test_users_creation_staff(db):
-    """Test creation of a staff user."""
+def test_users_creation_with_name(db):
+    """Test creation of a user with a name."""
+
     with db.get_session() as s:
-        s.add(User(is_staff=True))
+        s.add(User(name="eriol"))
         s.commit()
 
         u = s.query(User).one()
         assert u.id == 1
-        assert u.is_staff is True
+        assert u.name == "eriol"
 
 
 def test_poets_empty(db):

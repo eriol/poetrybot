@@ -5,22 +5,19 @@ from . import Base
 
 
 class User(Base):
-    """An user of poetrybot.
-
-    Staff users can add/modify/delete poems.
-    """
+    """An user of poetrybot."""
 
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    is_staff = Column(Boolean, default=False)
+    name = Column(String(length=150), nullable=False)
 
     def __repr__(self):
         return f"User(id={self.id}, is_staff={self.is_staff})"
 
     def to_dict(self):
         """Return a dict representation of an user."""
-        return {"id": self.id, "is_staff": self.is_staff}
+        return {"id": self.id, "name": self.name}
 
 
 class Poet(Base):
