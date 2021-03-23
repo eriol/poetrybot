@@ -293,7 +293,7 @@ testing = ["filelock"]
 
 [[package]]
 name = "python-telegram-bot"
-version = "13.3"
+version = "13.4.1"
 description = "We have made you a wrapper you can't refuse"
 category = "main"
 optional = false
@@ -405,7 +405,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ff35c5f7524c125c025fd5c0edbd739f5692dbdbb521518c01c2853fb7bddf40"
+content-hash = "c785cfb36f426c474481c6ae132d94b5a0b2cedb1dcc97bb18b0caae4590e88b"
 
 [metadata.files]
 apipkg = [
@@ -595,8 +595,8 @@ pytest-xdist = [
     {file = "pytest_xdist-2.2.1-py3-none-any.whl", hash = "sha256:2447a1592ab41745955fb870ac7023026f20a5f0bfccf1b52a879bd193d46450"},
 ]
 python-telegram-bot = [
-    {file = "python-telegram-bot-13.3.tar.gz", hash = "sha256:770d6c19f75e530de7f6a8784ec06945da84bcd2344a72932b8c2a05a78cd421"},
-    {file = "python_telegram_bot-13.3-py3-none-any.whl", hash = "sha256:8b5790cdbd5794da5ee06eb8d0a00a81e3f48b0e04b4d0e33874d45a2495c221"},
+    {file = "python-telegram-bot-13.4.1.tar.gz", hash = "sha256:4c1fdc3dab192bf1f754ccd0692511976b38e2c6ad75010e30844a19c0193c90"},
+    {file = "python_telegram_bot-13.4.1-py3-none-any.whl", hash = "sha256:467b0f149bf4d0b9b638530c9a887dd0d6e64da1d5603cfe6eee839671ca1496"},
 ]
 pytz = [
     {file = "pytz-2021.1-py2.py3-none-any.whl", hash = "sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798"},
