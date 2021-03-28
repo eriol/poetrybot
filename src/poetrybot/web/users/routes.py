@@ -45,3 +45,15 @@ def create_user():
     response = jsonify(created)
     response.status_code = 201
     return response
+
+
+@bp.route("/<int:id>", methods=["GET"])
+def get_user(id):
+
+    with store.get_session() as s:
+        user = s.query(User).filter(User.id == id).first()
+
+    if not user:
+        return error(404)
+
+    return jsonify(user_schema.dump(user))

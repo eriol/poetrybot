@@ -55,3 +55,18 @@ def test_create_user(client):
     r = client.get("/users")
     assert r.status == "200 OK"
     assert r.get_json() == [user]
+
+
+def test_get_user(client):
+    """Test get user details."""
+    r = client.get("/users/123456789")
+    assert r.status == "404 NOT FOUND"
+    assert r.get_json() == {"error": "Not Found"}
+
+    user = {"id": 123456, "name": "eriol"}
+    r = client.post("/users", json=user)
+    assert r.status == "201 CREATED"
+
+    r = client.get("/users/123456")
+    assert r.status == "200 OK"
+    assert r.get_json() == user
