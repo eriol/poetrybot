@@ -1,10 +1,16 @@
 from flask import jsonify, request
+from marshmallow import ValidationError
 
 from poetrybot.database import store
 from poetrybot.database.models import Poet
 
-from . import bp
 from ..errors import error
+
+from . import bp
+from .schemas import PoetSchema
+
+poet_schema = PoetSchema()
+poets_schema = PoetSchema(many=True)
 
 
 @bp.route("", methods=["GET"])
@@ -13,17 +19,17 @@ def get_poets():
     with store.get_session() as s:
         poets = s.query(Poet).all()
 
-    return jsonify([poet.to_dict() for poet in poets])
+    return jsonify(poets_schema.dump(poets))
 
 
 @bp.route("", methods=["POST"])
 def create_poet():
     data = request.get_json() or {}
 
-    if "name" not in data:
-        return error(400, "name field is required")
-    if data["name"] == "":
-        return error(400, "name field can't be empty")
+    try:
+        data = poet_schema.load(data)
+    except ValidationError as err:
+        return error(400, err.messages)
 
     created = None
     with store.get_session() as s:
@@ -35,7 +41,7 @@ def create_poet():
         s.add(poet)
         s.commit()
 
-        created = poet.to_dict()
+        created = poet_schema.dump(poet)
 
     response = jsonify(created)
     response.status_code = 201
@@ -51,17 +57,17 @@ def get_poet(id):
     if not poet:
         return error(404)
 
-    return jsonify(poet.to_dict())
+    return jsonify(poet_schema.dump(poet))
 
 
 @bp.route("/<int:id>", methods=["PUT"])
 def update_poet(id):
     data = request.get_json() or {}
 
-    if "name" not in data:
-        return error(400, "name field is required")
-    if data["name"] == "":
-        return error(400, "name field can't be empty")
+    try:
+        data = poet_schema.load(data)
+    except ValidationError as err:
+        return error(400, err.messages)
 
     updated = None
     with store.get_session() as s:
@@ -73,7 +79,7 @@ def update_poet(id):
         poet.name = data["name"]
         s.commit()
 
-        updated = poet.to_dict()
+        updated = poet_schema.dump(poet)
 
     return jsonify(updated)
 

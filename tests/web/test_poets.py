@@ -12,7 +12,10 @@ def test_create_poet(client):
     """Test poet creation."""
     r = client.post("/poets", json={})
     assert r.status == "400 BAD REQUEST"
-    assert r.get_json() == {"error": "Bad Request", "message": "name field is required"}
+    assert r.get_json() == {
+        "error": "Bad Request",
+        "message": {"name": ["Missing data for required field."]},
+    }
 
     poet = {"name": "Eugenio Montale"}
     r = client.post("/poets", json=poet)
