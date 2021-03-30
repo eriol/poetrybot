@@ -10,5 +10,16 @@ def validate_id(n):
 
 
 class UserSchema(Schema):
+    """Schema for users.
+
+    Used everywhere except during users' edit.
+    """
+
     id = fields.Int(validate=validate_id, required=True)
+    name = fields.String(required=True)
+
+
+class UserEditSchema(Schema):
+    """Schema for users edit."""
+
     name = fields.String(required=True)
