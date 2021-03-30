@@ -14,7 +14,7 @@ python-telegram-bot = "^13.4"
 environ-config = "^20.1.0"
 SQLAlchemy = "^1.4.2"
 Flask = "^1.1.2"
-marshmallow = "^3.10.0"
+marshmallow = "^3.11.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
