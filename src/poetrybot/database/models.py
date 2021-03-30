@@ -27,10 +27,6 @@ class Poet(Base):
     def __repr__(self):
         return f"Poet(id={self.id}, name={self.name})"
 
-    def to_dict(self):
-        """Return a dict representation of a poet."""
-        return {"id": self.id, "name": self.name}
-
 
 class Poem(Base):
     """A poem."""
