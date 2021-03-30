@@ -13,7 +13,7 @@ class User(Base):
     name = Column(String(length=150), nullable=False)
 
     def __repr__(self):
-        return f"User(id={self.id}, is_staff={self.is_staff})"
+        return f"User(id={self.id}, name={self.name})"
 
 
 class Poet(Base):
