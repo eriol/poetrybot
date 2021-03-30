@@ -28,6 +28,8 @@ come un occhio, che, largo, esterrefatto,
 s'aprì si chiuse, nella notte nera.
 """
 
+poet_name = "Giovanni Pascoli"
+
 
 @pytest.fixture
 def db():
@@ -40,12 +42,12 @@ def poems(db):
 
     with db.get_session() as s:
 
-        pascoli = Poet(name="Giovanni Pascoli")
-        s.add(pascoli)
+        poet = Poet(name=poet_name)
+        s.add(poet)
         s.commit()
 
-        s.add(Poem(verses=verses1, poet_id=pascoli.id))
-        s.add(Poem(verses=verses2, poet_id=pascoli.id))
+        s.add(Poem(verses=verses1, poet_id=poet.id))
+        s.add(Poem(verses=verses2, poet_id=poet.id))
         s.commit()
 
 
@@ -55,3 +57,4 @@ def test_get_a_random_poem(db, poems):
 
         poem = get_a_random_poem(s)
         assert poem.verses in [verses1, verses2]
+        assert poem.author.name == poet_name

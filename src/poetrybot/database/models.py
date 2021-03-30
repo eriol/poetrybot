@@ -1,5 +1,7 @@
 """Database models for poetrybot."""
-from sqlalchemy import Column, Integer, Boolean, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy.orm import relationship, backref
+
 
 from . import Base
 
@@ -37,6 +39,8 @@ class Poem(Base):
     title = Column(String(length=255, collation="NOCASE"), nullable=True)
     verses = Column(Text(collation="NOCASE"), nullable=False)
     poet_id = Column(Integer, ForeignKey("poets.id"), nullable=False)
+
+    author = relationship("Poet", backref=backref("poems"))
 
     def to_dict(self):
         """Return a dict representation of a poem."""
