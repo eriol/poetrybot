@@ -1,8 +1,8 @@
 import pytest
 
 from poetrybot.database import store
-from poetrybot.database.api import get_a_random_poem
-from poetrybot.database.models import Poet, Poem
+from poetrybot.database.api import get_a_random_poem, is_user_in_accept_list
+from poetrybot.database.models import Poet, Poem, User
 
 # First verses of L'assiuolo by Giovanni Pascoli (CC BY-NC-SA 4.0)
 # https://www.liberliber.it/online/autori/autori-p/giovanni-pascoli/myricae/
@@ -51,6 +51,14 @@ def poems(db):
         s.commit()
 
 
+@pytest.fixture
+def users(db):
+
+    with db.get_session() as s:
+        s.add(User(id=123456, name="eriol"))
+        s.commit()
+
+
 def test_get_a_random_poem(db, poems):
 
     with db.get_session() as s:
@@ -58,3 +66,10 @@ def test_get_a_random_poem(db, poems):
         poem = get_a_random_poem(s)
         assert poem.verses in [verses1, verses2]
         assert poem.author.name == poet_name
+
+
+def test_is_user_in_accept_list(db, users):
+    with db.get_session() as s:
+
+        assert is_user_in_accept_list(s, user_id=123456)
+        assert not is_user_in_accept_list(s, user_id=654321)
