@@ -7,8 +7,9 @@ from poetrybot.database.models import User
 from ..errors import error
 
 from . import bp
-from .schemas import UserSchema
+from .schemas import UserSchema, UserEditSchema
 
+user_edit_schema = UserEditSchema()
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
@@ -57,3 +58,27 @@ def get_user(id):
         return error(404)
 
     return jsonify(user_schema.dump(user))
+
+
+@bp.route("/<int:id>", methods=["PUT"])
+def update_user(id):
+    data = request.get_json() or {}
+
+    try:
+        data = user_edit_schema.load(data)
+    except ValidationError as err:
+        return error(400, err.messages)
+
+    updated = None
+    with store.get_session() as s:
+        user = s.query(User).filter(User.id == id).first()
+
+        if not user:
+            return error(404)
+
+        user.name = data["name"]
+        s.commit()
+
+        updated = user_schema.dump(user)
+
+    return jsonify(updated)

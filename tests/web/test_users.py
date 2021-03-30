@@ -59,7 +59,7 @@ def test_create_user(client):
 
 def test_get_user(client):
     """Test get user details."""
-    r = client.get("/users/123456789")
+    r = client.get("/users/123456")
     assert r.status == "404 NOT FOUND"
     assert r.get_json() == {"error": "Not Found"}
 
@@ -69,4 +69,17 @@ def test_get_user(client):
 
     r = client.get("/users/123456")
     assert r.status == "200 OK"
+    assert r.get_json() == user
+
+
+def test_edit_user(client):
+    """Test edit an user."""
+    user = {"id": 123456, "name": "e"}
+    r = client.post("/users", json=user)
+    assert r.status == "201 CREATED"
+
+    user = {"name": "eriol"}
+    r = client.put("/users/123456", json=user)
+    assert r.status == "200 OK"
+    user.update({"id": 123456})
     assert r.get_json() == user
