@@ -82,3 +82,18 @@ def update_user(id):
         updated = user_schema.dump(user)
 
     return jsonify(updated)
+
+
+@bp.route("/<int:id>", methods=["DELETE"])
+def delete_user(id):
+
+    with store.get_session() as s:
+        user = s.query(User).filter(User.id == id).first()
+
+        if not user:
+            return error(404)
+
+        s.delete(user)
+        s.commit()
+
+    return "", 204

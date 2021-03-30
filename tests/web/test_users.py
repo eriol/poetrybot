@@ -83,3 +83,23 @@ def test_edit_user(client):
     assert r.status == "200 OK"
     user.update({"id": 123456})
     assert r.get_json() == user
+
+
+def test_delete_user(client):
+    """Test delete an user."""
+    user = {"id": 123456, "name": "eriol"}
+
+    r = client.delete(f"/users/{user['id']}")
+    assert r.status == "404 NOT FOUND"
+
+    r = client.post("/users", json=user)
+    assert r.status == "201 CREATED"
+
+    r = client.get(f"/users/{user['id']}")
+    assert r.status == "200 OK"
+
+    r = client.delete(f"/users/{user['id']}")
+    assert r.status == "204 NO CONTENT"
+
+    r = client.get(f"/users/{user['id']}")
+    assert r.status == "404 NOT FOUND"
