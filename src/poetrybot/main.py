@@ -10,11 +10,11 @@ logging.basicConfig(
 )
 
 config = Config.from_environ()
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def main():
-    log.debug("Starting poetrybot")
+    logger.debug("Starting poetrybot")
 
     store.connect(config.DATABASE_URL)
 
