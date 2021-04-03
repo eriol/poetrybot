@@ -87,10 +87,10 @@ def test_poem_creation_no_parameters(db):
 
 def test_poem_creation_no_poet(db):
     """Test poem creation without a poet."""
-    # First verses of L'assiuolo by Giovanni Pascoli (CC BY-NC-SA 4.0)
-    # https://www.liberliber.it/online/autori/autori-p/giovanni-pascoli/myricae/
-    verses = """Dov’era la luna? ché il cielo
-notava in un'alba di perla,
+    # First verses of L'assiuolo by Giovanni Pascoli
+    # https://it.wikisource.org/wiki/Myricae/In_campagna/L%27assiuolo
+    verses = """Dov’era la luna? chè il cielo
+notava in un’alba di perla,
 ed ergersi il mandorlo e il melo
 parevano a meglio vederla.
 Venivano soffi di lampi
@@ -108,8 +108,8 @@ chiù...
 
 def test_poem_creation(db):
     """Test poem creation."""
-    # First verses of L'assiuolo by Giovanni Pascoli (CC BY-NC-SA 4.0)
-    # https://www.liberliber.it/online/autori/autori-p/giovanni-pascoli/myricae/
+    # First verses of L'assiuolo by Giovanni Pascoli
+    # https://it.wikisource.org/wiki/Myricae/In_campagna/L%27assiuolo
     verses = """Dov’era la luna? ché il cielo
 notava in un'alba di perla,
 ed ergersi il mandorlo e il melo

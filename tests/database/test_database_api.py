@@ -4,9 +4,9 @@ from poetrybot.database import store
 from poetrybot.database.api import get_a_random_poem, is_user_in_accept_list
 from poetrybot.database.models import Poet, Poem, User
 
-# First verses of L'assiuolo by Giovanni Pascoli (CC BY-NC-SA 4.0)
-# https://www.liberliber.it/online/autori/autori-p/giovanni-pascoli/myricae/
-verses1 = """Dov’era la luna? ché il cielo
+# First verses of L'assiuolo by Giovanni Pascoli
+# https://it.wikisource.org/wiki/Myricae/In_campagna/L%27assiuolo
+verses1 = """Dov’era la luna? chè il cielo
 notava in un'alba di perla,
 ed ergersi il mandorlo e il melo
 parevano a meglio vederla.
@@ -16,8 +16,8 @@ veniva una voce dai campi:
 chiù...
 """
 
-# Il lampo by Giovanni Pascoli (CC BY-NC-SA 4.0)
-# https://www.liberliber.it/online/autori/autori-p/giovanni-pascoli/myricae/
+# Il lampo by Giovanni Pascoli
+# https://it.wikisource.org/wiki/Myricae/Tristezze/Il_lampo
 verses2 = """E cielo e terra si mostrò qual era:
 
 la terra ansante, livida, in sussulto;
@@ -25,7 +25,7 @@ il cielo ingombro, tragico, disfatto:
 bianca bianca nel tacito tumulto
 una casa apparì sparì d’un tratto;
 come un occhio, che, largo, esterrefatto,
-s'aprì si chiuse, nella notte nera.
+s’aprì si chiuse, nella notte nera.
 """
 
 poet_name = "Giovanni Pascoli"
