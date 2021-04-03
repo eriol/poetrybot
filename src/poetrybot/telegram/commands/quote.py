@@ -1,4 +1,5 @@
 import logging
+import re
 
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
@@ -7,6 +8,25 @@ from poetrybot.database import store
 from poetrybot.database.api import get_a_random_poem, is_user_in_accept_list
 
 logger = logging.getLogger(__name__)
+
+QUOTE_REGEX_AUTHOR = re.compile(
+    r"""
+(?:/quote\s+)                   # /quote
+(?P<author>[A-Za-z\s]+)         # the author
+""",
+    re.VERBOSE,
+)
+
+QUOTE_REGEX_AUTHOR_ABOUT = re.compile(
+    r"""
+(?:/quote\s+)                   # /quote
+(?P<author>[A-Za-z\s]+)?        # the author (is optional)
+(?:about)                       # about
+(?:\s+)?                        # Ignore optional spaces
+(?P<argument>[A-Za-z\s]+)?      # the argument (is optional)
+""",
+    re.VERBOSE,
+)
 
 
 def quote(update: Update, context: CallbackContext) -> None:
@@ -29,3 +49,22 @@ def quote(update: Update, context: CallbackContext) -> None:
     context.bot.send_message(
         chat_id=update.effective_chat.id, text=reply, parse_mode=ParseMode.MARKDOWN
     )
+
+
+def parse_quote(text: str):
+    """Parse text to extract author and argument."""
+    author = None
+    argument = None
+
+    matched = QUOTE_REGEX_AUTHOR_ABOUT.match(text)
+    if not matched:
+        matched = QUOTE_REGEX_AUTHOR.match(text)
+
+    if matched:
+        author = matched.group("author").strip()
+        try:
+            argument = matched.group("argument").strip()
+        except (IndexError, AttributeError):
+            pass
+
+    return author, argument
