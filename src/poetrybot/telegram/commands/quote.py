@@ -22,7 +22,6 @@ QUOTE_REGEX_AUTHOR_ABOUT = re.compile(
 (?:/quote\s+)                   # /quote
 (?P<author>[A-Za-z\s]+)?        # the author (is optional)
 (?:about)                       # about
-(?:\s+)?                        # Ignore optional spaces
 (?P<argument>[A-Za-z\s]+)?      # the argument (is optional)
 """,
     re.VERBOSE,
@@ -42,7 +41,8 @@ def quote(update: Update, context: CallbackContext) -> None:
             )
             return
 
-        poem = get_a_random_poem(s)
+        author, argument = parse_quote(update.message.text)
+        poem = get_a_random_poem(s, author=author, argument=argument)
 
         reply = f"{poem.verses}\n\n_{poem.author.name}_" if poem else "No quote found!"
 
@@ -61,7 +61,11 @@ def parse_quote(text: str):
         matched = QUOTE_REGEX_AUTHOR.match(text)
 
     if matched:
-        author = matched.group("author").strip()
+        try:
+            author = matched.group("author").strip()
+        except (IndexError, AttributeError):
+            pass
+
         try:
             argument = matched.group("argument").strip()
         except (IndexError, AttributeError):
