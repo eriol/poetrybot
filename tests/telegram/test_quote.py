@@ -26,3 +26,7 @@ def test_parse_quote():
     author, argument = parse_quote("/quote Giovanni Pascoli about cielo")
     assert author == "Giovanni Pascoli"
     assert argument == "cielo"
+
+    author, argument = parse_quote("/quote about cielo")
+    assert author is None
+    assert argument == "cielo"
