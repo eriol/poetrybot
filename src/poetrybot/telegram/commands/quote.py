@@ -11,7 +11,9 @@ logger = logging.getLogger(__name__)
 
 QUOTE_REGEX_AUTHOR = re.compile(
     r"""
-(?:/quote\s+)                   # /quote
+(?:/quote)                      # /quote
+(?:@\w+)?                       # name of the bot
+\s+                             # one or more spaces
 (?P<author>[A-Za-z\s]+)         # the author
 """,
     re.VERBOSE,
@@ -19,7 +21,9 @@ QUOTE_REGEX_AUTHOR = re.compile(
 
 QUOTE_REGEX_AUTHOR_ABOUT = re.compile(
     r"""
-(?:/quote\s+)                   # /quote
+(?:/quote)                      # /quote
+(?:@\w+)?                       # name of the bot
+\s+                             # one or more spaces
 (?P<author>[A-Za-z\s]+)?        # the author (is optional)
 (?:about)                       # about
 (?P<argument>[A-Za-z\s]+)?      # the argument (is optional)
