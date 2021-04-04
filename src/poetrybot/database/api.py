@@ -26,6 +26,6 @@ def get_a_random_poem(session, author=None, argument=None):
         return None
 
 
-def is_user_in_accept_list(session, user_id):
-    """Return True if the user is inside the accept list."""
+def is_user_in_allow_list(session, user_id):
+    """Return True if the user is inside the allow list."""
     return True if session.query(User).filter(User.id == user_id).count() else False

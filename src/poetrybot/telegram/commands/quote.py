@@ -5,7 +5,7 @@ from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
 
 from poetrybot.database import store
-from poetrybot.database.api import get_a_random_poem, is_user_in_accept_list
+from poetrybot.database.api import get_a_random_poem, is_user_in_allow_list
 
 logger = logging.getLogger(__name__)
 
@@ -37,11 +37,12 @@ def quote(update: Update, context: CallbackContext) -> None:
     with store.get_session() as s:
 
         user_id = update.effective_user.id
-        username = update.effective_user.username
-        if not is_user_in_accept_list(s, user_id=update.effective_user.id):
+        if not is_user_in_allow_list(s, user_id=user_id):
             logger.warning(
                 "Telegram user with id '{}' and username"
-                " '{}' tried to get a quote.".format(user_id, username)
+                " '{}' tried to get a quote.".format(
+                    user_id, update.effective_user.username
+                )
             )
             return
 

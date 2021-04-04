@@ -1,7 +1,7 @@
 import pytest
 
 from poetrybot.database import store
-from poetrybot.database.api import get_a_random_poem, is_user_in_accept_list
+from poetrybot.database.api import get_a_random_poem, is_user_in_allow_list
 from poetrybot.database.models import Poet, Poem, User
 
 # First verses of L'assiuolo by Giovanni Pascoli
@@ -71,5 +71,5 @@ def test_get_a_random_poem(db, poems):
 def test_is_user_in_accept_list(db, users):
     with db.get_session() as s:
 
-        assert is_user_in_accept_list(s, user_id=123456)
-        assert not is_user_in_accept_list(s, user_id=654321)
+        assert is_user_in_allow_list(s, user_id=123456)
+        assert not is_user_in_allow_list(s, user_id=654321)
