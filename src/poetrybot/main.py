@@ -5,7 +5,7 @@ from poetrybot.database import store
 from poetrybot.telegram.bot import run
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(name)s - %(levelname)s - %(message)s",
 )
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    logger.debug("Starting poetrybot")
+    logger.info("Starting poetrybot")
 
     store.connect(config.DATABASE_URL)
 
