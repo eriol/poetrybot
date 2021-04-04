@@ -1,0 +1,15 @@
+.git
+.dockerignore
+.gitignore
+.drone.yml
+.editorconfig
+.envrc
+.flake8
+dist/
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv
+venv
