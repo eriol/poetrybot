@@ -41,12 +41,3 @@ class Poem(Base):
     poet_id = Column(Integer, ForeignKey("poets.id"), nullable=False)
 
     author = relationship("Poet", backref=backref("poems"))
-
-    def to_dict(self):
-        """Return a dict representation of a poem."""
-        return {
-            "id": self.id,
-            "title": self.title,
-            "verses": self.verses,
-            "poet_id": self.poet_id,
-        }

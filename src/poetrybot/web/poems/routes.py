@@ -10,6 +10,7 @@ from . import bp
 from .schemas import PoemSchema
 
 poem_schema = PoemSchema()
+poems_schema = PoemSchema(many=True)
 
 
 @bp.route("", methods=["GET"])
@@ -18,7 +19,7 @@ def get_poems():
     with store.get_session() as s:
         poems = s.query(Poem).all()
 
-    return jsonify([poem.to_dict() for poem in poems])
+    return jsonify(poems_schema.dump(poems))
 
 
 @bp.route("", methods=["POST"])
@@ -37,7 +38,7 @@ def create_poem():
         s.add(poem)
         s.commit()
 
-        created = poem.to_dict()
+        created = poem_schema.dump(poem)
 
     response = jsonify(created)
     response.status_code = 201
@@ -53,7 +54,7 @@ def get_poem(id):
     if not poem:
         return error(404)
 
-    return jsonify(poem.to_dict())
+    return jsonify(poem_schema.dump(poem))
 
 
 @bp.route("/<int:id>", methods=["PUT"])
@@ -76,7 +77,7 @@ def update_poem(id):
             setattr(poem, key, data[key])
         s.commit()
 
-        updated = poem.to_dict()
+        updated = poem_schema.dump(poem)
 
     return jsonify(updated)
 
