@@ -28,4 +28,8 @@ FROM base as final
 COPY --from=builder /venv /venv
 COPY extra/entrypoint.sh ./
 
+RUN useradd --no-create-home appuser
+
+USER appuser
+
 CMD ["./entrypoint.sh"]
