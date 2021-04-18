@@ -5,7 +5,7 @@ target-version = ["py38"]
 [tool.poetry]
 name = "poetrybot"
 version = "0.1.0"
-description = ""
+description = "poetrybot is a Telegram bot to quote poems between friends."
 authors = ["Daniele Tricoli <eriol@mornie.org>"]
 
 [tool.poetry.dependencies]
