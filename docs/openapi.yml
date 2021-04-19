@@ -1,0 +1,316 @@
+openapi: '3.0.3'
+
+info:
+  title: poetrybot API
+  version: '0.1.0'
+
+servers:
+  - url: http://localhost:5000
+    description: Development
+
+components:
+  securitySchemes:
+
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+
+  schemas:
+    User:
+      type: object
+      required: ['id', 'name']
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    UserName:
+      type: object
+      required: ['name']
+      properties:
+        name:
+          type: string
+
+    Poet:
+      type: object
+      required: ['name']
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+
+    Poem:
+      type: object
+      required: ['verses', 'poet_id']
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        verses:
+          type: string
+        poet_id:
+          type: integer
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+
+  /users:
+    get:
+      summary: List users in the allow list
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Add a new user to the allow list
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: The created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+
+  /users/{user_id}:
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: the user identifier
+        schema:
+          type: integer
+    get:
+      summary: Ger a specific user
+      tags:
+        - users
+      responses:
+        '200':
+          description: The specific user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not found
+    put:
+      summary: Edit a specific user
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserName'
+      responses:
+        '200':
+          description: The edited user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not found
+    delete:
+      summary: Delete a specific user
+      tags:
+        - users
+      responses:
+        '204':
+          description: User deleted
+        '404':
+          description: Not found
+
+  /poets:
+    get:
+      summary: List poets
+      tags:
+        - poets
+      responses:
+        '200':
+          description: A list of poets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Poet'
+    post:
+      summary: Create a new poet
+      tags:
+        - poets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poet'
+      responses:
+        '201':
+          description: The created poet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poet'
+        '400':
+          description: Bad request
+
+  /poets/{poet_id}:
+    parameters:
+      - name: poet_id
+        in: path
+        required: true
+        description: the poet identifier
+        schema:
+          type: integer
+    get:
+      summary: Get a specific poet
+      tags:
+        - poets
+      responses:
+        '200':
+          description: The specific poet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poet'
+        '404':
+          description: Not found
+    put:
+      summary: Edit a specific poet
+      tags:
+        - poets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poet'
+      responses:
+        '200':
+          description: The edited poet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poet'
+        '404':
+          description: Not found
+    delete:
+      tags:
+        - poets
+      summary: Delete a specific poet
+      responses:
+        '204':
+          description: Poet deleted
+        '404':
+          description: Not found
+
+  /poems:
+    get:
+      summary: List poems
+      tags:
+        - poems
+      responses:
+        '200':
+          description: A list of poems
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Poem'
+    post:
+      summary: Create a new poem
+      tags:
+        - poems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poem'
+      responses:
+        '201':
+          description: The created poem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poem'
+        '400':
+          description: Bad request
+
+  /poems/{poem_id}:
+    parameters:
+      - name: poem_id
+        in: path
+        required: true
+        description: the poem identifier
+        schema:
+          type: integer
+    get:
+      summary: Get a specific poem
+      tags:
+        - poems
+      responses:
+        '200':
+          description: The specific poem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poem'
+        '404':
+          description: Not found
+    put:
+      summary: Update a poem
+      tags:
+        - poems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poem'
+      responses:
+        '200':
+          description: The edited poem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poem'
+        '404':
+          description: Not found
+    delete:
+      tags:
+        - poems
+      summary: Delete a specific poem
+      responses:
+        '204':
+          description: Poem deleted
+        '404':
+          description: Not found
