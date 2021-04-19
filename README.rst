@@ -67,12 +67,12 @@ poem, but optionally the author and the argument can be specified:
 
   .. code-block::
 
-      /quote Giovanni Pascoli
-      /quote pascoli
-      /quote ascol
+     /quote Giovanni Pascoli
+     /quote pascoli
+     /quote ascol
 
-   will return a random poem by Giovanni Pascoli, if you don't have another
-   poet with *ascol* inside the name;
+  will return a random poem by Giovanni Pascoli, if you don't have another
+  poet with *ascol* inside the name;
 * `/quote AUTHOR about ARGUMENT` returns a random poem by `AUTHOR` about
   `ARGUMENT`.
 
