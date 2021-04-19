@@ -65,7 +65,7 @@ poem, but optionally the author and the argument can be specified:
 
   `AUTHOR` is the name or part of the name of the poet case insensitive:
 
-   .. code-block::
+  .. code-block::
 
       /quote Giovanni Pascoli
       /quote pascoli
