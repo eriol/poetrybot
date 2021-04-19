@@ -7,6 +7,7 @@ name = "poetrybot"
 version = "0.1.1"
 description = "poetrybot is a Telegram bot to quote poems between friends."
 authors = ["Daniele Tricoli <eriol@mornie.org>"]
+readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "^3.9"
