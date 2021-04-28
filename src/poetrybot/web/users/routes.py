@@ -5,9 +5,8 @@ from poetrybot.database import store
 from poetrybot.database.models import User
 
 from ..errors import error
-
 from . import bp
-from .schemas import UserSchema, UserEditSchema
+from .schemas import UserEditSchema, UserSchema
 
 user_edit_schema = UserEditSchema()
 user_schema = UserSchema()

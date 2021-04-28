@@ -2,7 +2,7 @@ from sqlalchemy.orm import contains_eager
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql.expression import func
 
-from .models import Poem, User, Poet
+from .models import Poem, Poet, User
 
 
 def get_a_random_poem(session, author=None, argument=None):

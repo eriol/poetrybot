@@ -1,7 +1,6 @@
 """Database models for poetrybot."""
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
-from sqlalchemy.orm import relationship, backref
-
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
+from sqlalchemy.orm import backref, relationship
 
 from . import Base
 

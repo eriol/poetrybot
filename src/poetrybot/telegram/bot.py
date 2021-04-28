@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import CommandHandler, Updater
 
 from .commands.help import help
 from .commands.quote import quote

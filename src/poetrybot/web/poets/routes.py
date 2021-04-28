@@ -5,7 +5,6 @@ from poetrybot.database import store
 from poetrybot.database.models import Poet
 
 from ..errors import error
-
 from . import bp
 from .schemas import PoetSchema
 
