@@ -17,7 +17,7 @@ keywords = ["telegram", "bot"]
 [tool.poetry.dependencies]
 python = "^3.9"
 python-telegram-bot = "^13.4"
-environ-config = "^20.1.0"
+environ-config = "^21.2.0"
 SQLAlchemy = "^1.4.3"
 Flask = "^1.1.2"
 marshmallow = "^3.11.1"

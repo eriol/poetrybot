@@ -80,7 +80,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "environ-config"
-version = "20.1.0"
+version = "21.2.0"
 description = "Boilerplate-free configuration with env variables."
 category = "main"
 optional = false
@@ -90,9 +90,10 @@ python-versions = "*"
 attrs = ">=17.4.0"
 
 [package.extras]
-dev = ["pytest", "coverage", "sphinx", "sphinx-rtd-theme", "pre-commit"]
-docs = ["sphinx", "sphinx-rtd-theme"]
-tests = ["pytest", "coverage"]
+aws = ["boto3"]
+dev = ["boto3", "pytest", "coverage", "moto", "sphinx", "furo", "pre-commit"]
+docs = ["sphinx", "furo"]
+tests = ["pytest", "coverage", "moto"]
 
 [[package]]
 name = "execnet"
@@ -407,7 +408,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "6c7b4e7af96920c801563c1d45b02deee58a5c7f3f472af683870f5f40b5b0ab"
+content-hash = "b832af2bc6b964fbb7fbb17ffeab7a42a65ab7a2f4bbeecd714e296f3d7777ca"
 
 [metadata.files]
 apipkg = [
@@ -439,8 +440,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 environ-config = [
-    {file = "environ-config-20.1.0.tar.gz", hash = "sha256:3167feda073bd3cd3457a3e5fa7c2836b6574c046cd0dcd79385ce3284e837bd"},
-    {file = "environ_config-20.1.0-py2.py3-none-any.whl", hash = "sha256:0e300307520c1e6a5424018b7f70246a2c7f4cb5cc5cbbebccc6a982eb1767cb"},
+    {file = "environ-config-21.2.0.tar.gz", hash = "sha256:24bebf69d814a18242483c83a2856f20db1b623eab2d34fb712d3d02f5cd22c8"},
+    {file = "environ_config-21.2.0-py2.py3-none-any.whl", hash = "sha256:638057e2fb73984d62192f9c13510eb5df1d291f95b8923e9dc588453d709dd3"},
 ]
 execnet = [
     {file = "execnet-1.8.0-py2.py3-none-any.whl", hash = "sha256:7a13113028b1e1cc4c6492b28098b3c6576c9dccc7973bfe47b342afadafb2ac"},
