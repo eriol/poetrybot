@@ -45,7 +45,7 @@ Installation
       gunicorn poetrybot.web.wsgi:app
 
 6. Use the REST API to insert allowed friends, poets and poems. The fastest way
-   to look at the API is to load the API specification into 
+   to look at the API is to load the API specification into
    https://editor.swagger.io
 
 An alternative is to clone the repository and use the provided ``Dockerfile``.
