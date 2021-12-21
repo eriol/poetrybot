@@ -1,18 +1,21 @@
-import pytest
+"""Tests for database models."""
 
+import pytest
 from sqlalchemy.exc import IntegrityError
 
 from poetrybot.database import store
-from poetrybot.database.models import User, Poet, Poem
+from poetrybot.database.models import Poem, Poet, User
 
 
 @pytest.fixture
 def db():
+    """Connect to an in memory sqlite database."""
     store.connect("sqlite:///:memory:")
     return store
 
 
 def test_users_empty(db):
+    """Test that with a new created database we don't have users."""
     with db.get_session() as s:
         assert s.query(User).all() == []
 
@@ -27,7 +30,6 @@ def test_users_creation_without_name(db):
 
 def test_users_creation_with_name(db):
     """Test creation of a user with a name."""
-
     with db.get_session() as s:
         s.add(User(name="eriol"))
         s.commit()
@@ -38,13 +40,13 @@ def test_users_creation_with_name(db):
 
 
 def test_poets_empty(db):
+    """Test that with a new created database we don't have poets."""
     with db.get_session() as s:
         assert s.query(Poet).all() == []
 
 
 def test_poets_creation_no_parameters(db):
     """Test poet creation without parameters."""
-
     with db.get_session() as s:
         s.add(Poet())
 
@@ -76,7 +78,6 @@ def test_poets_creation(db):
 
 def test_poem_creation_no_parameters(db):
     """Test poem creation without parameters."""
-
     with db.get_session() as s:
         s = db.session()
         s.add(Poem())
