@@ -1,10 +1,6 @@
 ---
-kind: pipeline
-type: docker
-name: default
-
-steps:
-  - name: test
+pipeline:
+  test:
     image: python:3.9.2-slim-buster
     commands:
       - apt update && apt install -y curl
