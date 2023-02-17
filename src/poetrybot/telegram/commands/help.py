@@ -1,7 +1,7 @@
 from telegram import Update
-from telegram.ext import CallbackContext
+from telegram.ext import ContextTypes
 
 
-def help(update: Update, context: CallbackContext) -> None:
+async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Give help to users."""
-    update.message.reply_text("Hello! Use /quote to get a random poem!")
+    await update.message.reply_text("Hello! Use /quote to get a random poem!")
