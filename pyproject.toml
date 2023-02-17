@@ -20,7 +20,7 @@ python-telegram-bot = "^20.1"
 environ-config = "^21.2.0"
 SQLAlchemy = "^1.4.3"
 Flask = "^1.1.2"
-marshmallow = "^3.11.1"
+marshmallow = "^3.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.2.1"
