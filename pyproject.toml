@@ -7,7 +7,7 @@ profile = "black"
 
 [tool.poetry]
 name = "poetrybot"
-version = "0.1.1"
+version = "0.2.0"
 description = "poetrybot is a Telegram bot to quote poems between friends."
 authors = ["Daniele Tricoli <eriol@mornie.org>"]
 readme = "README.rst"
@@ -28,7 +28,7 @@ pytest-sugar = "^0.9.6"
 pytest-xdist = "^3.2.0"
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "0.2.0"
 addopts = "--verbose"
 
 [tool.poetry.scripts]
