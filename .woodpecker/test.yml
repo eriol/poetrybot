@@ -1,7 +1,7 @@
 ---
 pipeline:
   test:
-    image: python:3.9.2-slim-buster
+    image: python:3.11-slim-bullseye
     commands:
       - apt update && apt install -y curl
       - curl -sSL https://install.python-poetry.org | python3 -
