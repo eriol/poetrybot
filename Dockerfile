@@ -9,7 +9,7 @@ FROM base as builder
 
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_NO_CACHE_DIR=off \
-    POETRY_VERSION=1.1.4 \
+    POETRY_VERSION=1.3.2 \
     GUNICORN_VERSION=20.1.0
 
 RUN pip install "poetry==$POETRY_VERSION" \
