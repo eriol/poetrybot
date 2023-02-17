@@ -1,7 +1,8 @@
 import logging
 import re
 
-from telegram import ParseMode, Update
+from telegram import Update
+from telegram.constants import ParseMode
 from telegram.ext import CallbackContext
 
 from poetrybot.database import store
