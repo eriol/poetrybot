@@ -1,15 +1,13 @@
-from telegram.ext import CommandHandler, Updater
+from telegram.ext import Application, CommandHandler
 
 from .commands.help import help
 from .commands.quote import quote
 
 
 def run(config) -> None:
-    updater = Updater(config.TELEGRAM_TOKEN)
-    dispatcher = updater.dispatcher
+    application = Application.builder().token(config.TELEGRAM_TOKEN).build()
 
-    dispatcher.add_handler(CommandHandler("help", help))
-    dispatcher.add_handler(CommandHandler("quote", quote))
+    application.add_handler(CommandHandler("help", help))
+    application.add_handler(CommandHandler("quote", quote))
 
-    updater.start_polling()
-    updater.idle()
+    application.run_polling()
