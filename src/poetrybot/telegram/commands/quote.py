@@ -3,7 +3,7 @@ import re
 
 from telegram import Update
 from telegram.constants import ParseMode
-from telegram.ext import CallbackContext
+from telegram.ext import ContextTypes
 
 from poetrybot.database import store
 from poetrybot.database.api import get_a_random_poem, is_user_in_allow_list
@@ -33,7 +33,7 @@ QUOTE_REGEX_AUTHOR_ABOUT = re.compile(
 )
 
 
-def quote(update: Update, context: CallbackContext) -> None:
+async def quote(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Get a poem."""
     with store.get_session() as s:
 
@@ -52,7 +52,7 @@ def quote(update: Update, context: CallbackContext) -> None:
 
         reply = f"{poem.verses}\n\n_{poem.author.name}_" if poem else "No quote found!"
 
-    context.bot.send_message(
+    await context.bot.send_message(
         chat_id=update.effective_chat.id, text=reply, parse_mode=ParseMode.MARKDOWN
     )
 
